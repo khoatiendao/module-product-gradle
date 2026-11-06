@@ -1,6 +1,6 @@
 package com.example.module_product_gradle.module.category.entity;
 
-import com.example.module_product_gradle.common.CommonEnum.Status;
+import com.example.module_product_gradle.common.commonEnum.Status;
 import com.example.module_product_gradle.common.entity.BaseEntity;
 import com.example.module_product_gradle.module.product.entity.Product;
 import jakarta.persistence.*;

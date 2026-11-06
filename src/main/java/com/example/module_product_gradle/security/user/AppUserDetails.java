@@ -1,8 +1,7 @@
 package com.example.module_product_gradle.security.user;
 
-import com.example.module_product_gradle.common.CommonEnum.UserRoleEnum;
+import com.example.module_product_gradle.common.commonEnum.UserRoleEnum;
 import com.example.module_product_gradle.module.user.entity.User;
-import org.jspecify.annotations.Nullable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -1,6 +1,6 @@
 package com.example.module_product_gradle.module.category.service;
 
-import com.example.module_product_gradle.common.CommonEnum.Status;
+import com.example.module_product_gradle.common.commonEnum.Status;
 import com.example.module_product_gradle.common.constant.MessageConstant;
 import com.example.module_product_gradle.common.dto.res.PageResponse;
 import com.example.module_product_gradle.common.exception.AppException;

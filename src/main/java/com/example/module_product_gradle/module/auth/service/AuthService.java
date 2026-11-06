@@ -1,6 +1,6 @@
 package com.example.module_product_gradle.module.auth.service;
 
-import com.example.module_product_gradle.common.CommonEnum.UserRoleEnum;
+import com.example.module_product_gradle.common.commonEnum.UserRoleEnum;
 import com.example.module_product_gradle.common.constant.MessageConstant;
 import com.example.module_product_gradle.common.exception.AppException;
 import com.example.module_product_gradle.common.exception.ErrorCode;

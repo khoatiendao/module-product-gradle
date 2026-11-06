@@ -1,9 +1,8 @@
 package com.example.module_product_gradle.module.category.dto.res;
 
-import com.example.module_product_gradle.common.CommonEnum.Status;
+import com.example.module_product_gradle.common.commonEnum.Status;
 import com.example.module_product_gradle.module.category.entity.Category;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public record CategoryDtoRes(

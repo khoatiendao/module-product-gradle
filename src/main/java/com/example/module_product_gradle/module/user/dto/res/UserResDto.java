@@ -1,6 +1,6 @@
 package com.example.module_product_gradle.module.user.dto.res;
 
-import com.example.module_product_gradle.common.CommonEnum.UserRoleEnum;
+import com.example.module_product_gradle.common.commonEnum.UserRoleEnum;
 import com.example.module_product_gradle.module.user.entity.User;
 
 import java.time.LocalDateTime;

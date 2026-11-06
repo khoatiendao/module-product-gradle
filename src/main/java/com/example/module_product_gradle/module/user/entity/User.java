@@ -1,6 +1,6 @@
 package com.example.module_product_gradle.module.user.entity;
 
-import com.example.module_product_gradle.common.CommonEnum.UserRoleEnum;
+import com.example.module_product_gradle.common.commonEnum.UserRoleEnum;
 import com.example.module_product_gradle.common.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
