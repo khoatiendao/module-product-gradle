@@ -31,9 +31,8 @@ public class ProductController {
 
     @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
-    public ApiResponse<Void> create(@Valid @RequestBody ProductDtoReq.Create createDto) {
-        productService.createProduct(createDto);
-        return ApiResponse.ok("Created", null);
+    public ApiResponse<ProductDtoRes> create(@Valid @RequestBody ProductDtoReq.Create createDto) {
+        return ApiResponse.ok("Created", productService.createProduct(createDto));
     }
 
     @GetMapping("/{id}")
@@ -44,13 +43,11 @@ public class ProductController {
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ApiResponse<Void> update(@PathVariable Long id, @Valid @RequestBody ProductDtoReq.Update updateDto) {
-        productService.updateProduct(id, updateDto);
-        return ApiResponse.ok("Updated", null);
+    public ApiResponse<ProductDtoRes> update(@PathVariable Long id, @Valid @RequestBody ProductDtoReq.Update updateDto) {
+        return ApiResponse.ok("Updated", productService.updateProduct(id, updateDto));
     }
 
     @PatchMapping("/{id}/remove-quantity")
-//    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     @ResponseStatus(HttpStatus.OK)
     public ApiResponse<Integer> removeQuantity(@PathVariable Long id) {
         return ApiResponse.ok("Remove", productService.removeQuantityProduct(id));

@@ -30,9 +30,8 @@ public class CategoryController {
 
     @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
-    public ApiResponse<Void> createCategory(@Valid @RequestBody CategoryDtoReq.create createDto) {
-        categoryService.create(createDto);
-        return ApiResponse.ok("Created", null);
+    public ApiResponse<CategoryDtoRes> createCategory(@Valid @RequestBody CategoryDtoReq.create createDto) {
+        return ApiResponse.ok("Created", categoryService.create(createDto));
     }
 
     @GetMapping("/{id}")
@@ -43,9 +42,8 @@ public class CategoryController {
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ApiResponse<Void> updateCategory(@PathVariable Long id,@Valid @RequestBody CategoryDtoReq.update updateDto) {
-        categoryService.update(id, updateDto);
-        return ApiResponse.ok("Updated", null);
+    public ApiResponse<CategoryDtoRes> updateCategory(@PathVariable Long id,@Valid @RequestBody CategoryDtoReq.update updateDto) {
+        return ApiResponse.ok("Updated", categoryService.update(id, updateDto));
     }
 
     @PutMapping("/update-status/{id}")

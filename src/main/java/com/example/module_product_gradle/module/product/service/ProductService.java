@@ -30,7 +30,7 @@ public class ProductService {
         return PageResponse.from(productRepository.findByActiveTrue(pageable), ProductDtoRes::from);
     }
 
-    public void createProduct(ProductDtoReq.Create createDto) {
+    public ProductDtoRes createProduct(ProductDtoReq.Create createDto) {
         Category category = categoryRepository.findById(createDto.categoryId())
                 .orElseThrow(() -> new AppException(ErrorCode.NOT_FOUND, MessageConstant.CATEGORY_NOT_FOUND));
         Product product = new Product();
@@ -39,6 +39,7 @@ public class ProductService {
         product.setQuantity(createDto.quantity());
         product.setCategory(category);
         productRepository.save(product);
+        return ProductDtoRes.from(product);
     }
 
     public ProductDtoRes getOneProduct(Long id) {
@@ -52,7 +53,7 @@ public class ProductService {
         return ProductDtoRes.from(product);
     }
 
-    public void updateProduct(Long id, ProductDtoReq.Update updateDto) {
+    public ProductDtoRes updateProduct(Long id, ProductDtoReq.Update updateDto) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorCode.NOT_FOUND, MessageConstant.PRODUCT_NOT_FOUND));
 
@@ -64,6 +65,7 @@ public class ProductService {
         product.setQuantity(updateDto.quantity());
         product.setCategory(category);
         productRepository.save(product);
+        return ProductDtoRes.from(product);
     }
 
     @Transactional

@@ -25,11 +25,13 @@ public class CategoryService {
                 CategoryDtoRes::from);
     }
 
-    public void create(CategoryDtoReq.create createDto) {
+    @Transactional
+    public CategoryDtoRes create(CategoryDtoReq.create createDto) {
         Category category = new Category();
         category.setName(createDto.name());
         category.setStatus(createDto.status());
         categoryRepository.save(category);
+        return CategoryDtoRes.from(category);
     }
 
     public CategoryDtoRes getOne(Long id) {
@@ -39,13 +41,14 @@ public class CategoryService {
         return CategoryDtoRes.from(category);
     }
 
-    public void update(Long id ,CategoryDtoReq.update updateDto) {
+    public CategoryDtoRes update(Long id ,CategoryDtoReq.update updateDto) {
         Category category = categoryRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorCode.NOT_FOUND, MessageConstant.CATEGORY_NOT_FOUND));
 
         category.setName(updateDto.name());
         category.setStatus(updateDto.status());
         categoryRepository.save(category);
+        return CategoryDtoRes.from(category);
     }
 
     public void changeStatus(Long id, CategoryDtoReq.changeStatusDto statusDto) {
