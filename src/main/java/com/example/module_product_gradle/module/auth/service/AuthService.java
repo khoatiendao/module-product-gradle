@@ -17,6 +17,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+
 @Service
 @RequiredArgsConstructor
 public class AuthService {
@@ -70,23 +72,41 @@ public class AuthService {
         user.setRefreshToken(TokenUtil.sha256Hex(refreshToken));
         userRepository.save(user);
 
-        return new AuthResDto(jwtService.generateAccessToken(user), refreshToken);
+        return CommonTokenFunction(user);
     }
 
     @Transactional
     public AuthResDto refreshToken(String refreshToken) {
-        User user = userRepository.findByRefreshToken(refreshToken)
-                .orElseThrow(() -> new AppException(ErrorCode.NOT_FOUND, MessageConstant.TOKEN_NOT_FOUND));
+        String hash = TokenUtil.sha256Hex(refreshToken);
+        User user = userRepository.findByRefreshToken(hash)
+                .orElseThrow(() -> new AppException(ErrorCode.UNAUTHORIZED, MessageConstant.TOKEN_NOT_FOUND));
 
+        LocalDateTime expiredAt = user.getRefreshTokenExpiredAt();
+        if(expiredAt == null || expiredAt.isBefore(LocalDateTime.now())) {
+            throw new AppException(ErrorCode.UNAUTHORIZED, MessageConstant.TOKEN_NOT_FOUND);
+        }
+        if (!Boolean.TRUE.equals(user.getActive())) {
+            throw new AppException(ErrorCode.UNAUTHORIZED, MessageConstant.TOKEN_NOT_FOUND);
+        }
         String newRefreshToken = TokenUtil.generateRefreshToken();
         user.setRefreshToken(TokenUtil.sha256Hex(newRefreshToken));
-        userRepository.save(user);
 
-        return new AuthResDto(jwtService.generateAccessToken(user), newRefreshToken);
+        return CommonTokenFunction(user);
     }
 
     @Transactional
     public void logout(Long userId) {
         userFunctionRepository.removeRefreshToken(userId);
+    }
+
+    private AuthResDto CommonTokenFunction(User user) {
+        String refreshToken = TokenUtil.generateRefreshToken();
+
+        user.setRefreshToken(TokenUtil.sha256Hex(refreshToken));
+        user.setRefreshTokenExpiredAt(LocalDateTime.now()
+                .plusDays(jwtProperties.refreshToken().refreshExpirationDays()));
+        userRepository.save(user);
+
+        return new AuthResDto(jwtService.generateAccessToken(user), refreshToken);
     }
 }

@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @Entity
@@ -25,4 +27,7 @@ public class User extends BaseEntity {
 
     @Column(name = "refresh_token", nullable = true)
     private String refreshToken;
+
+    @Column(name = "refresh_token_expired_at", nullable = true)
+    private LocalDateTime refreshTokenExpiredAt;
 }

@@ -37,7 +37,12 @@ public class SecurityConfig {
                         s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth ->
                         auth
-                                .requestMatchers("/api/auth/register", "/api/auth/login", "/api/auth/create-admin").permitAll()
+                                .requestMatchers(
+                                        "/api/auth/register",
+                                        "/api/auth/login",
+                                        "/api/auth/create-admin",
+                                        "/api/auth/refresh-token"
+                                ).permitAll()
                                 .requestMatchers(HttpMethod.POST, adminManaged).hasRole((UserRoleEnum.ADMIN).toString())
                                 .requestMatchers(HttpMethod.PUT, adminManaged).hasRole((UserRoleEnum.ADMIN).toString())
                                 .requestMatchers(HttpMethod.PATCH, adminManaged).hasRole((UserRoleEnum.ADMIN).toString())
