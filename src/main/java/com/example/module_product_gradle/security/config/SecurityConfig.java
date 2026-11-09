@@ -29,7 +29,7 @@ public class SecurityConfig {
             HttpSecurity httpSecurity,
             JwtAuthenticationConverter jwtConverter)
     throws Exception {
-        String[] adminManaged = { "/api/product/**", "/api/category/**" };
+        String[] productAndCategory = { "/api/product/**", "/api/category/**" };
 
         httpSecurity
                 .csrf(csrf -> csrf.disable())
@@ -43,10 +43,11 @@ public class SecurityConfig {
                                         "/api/auth/create-admin",
                                         "/api/auth/refresh-token"
                                 ).permitAll()
-                                .requestMatchers(HttpMethod.POST, adminManaged).hasRole((UserRoleEnum.ADMIN).toString())
-                                .requestMatchers(HttpMethod.PUT, adminManaged).hasRole((UserRoleEnum.ADMIN).toString())
-                                .requestMatchers(HttpMethod.PATCH, adminManaged).hasRole((UserRoleEnum.ADMIN).toString())
-                                .requestMatchers(HttpMethod.DELETE, adminManaged).hasRole((UserRoleEnum.ADMIN).toString())
+                                .requestMatchers(HttpMethod.GET, productAndCategory).permitAll()
+                                .requestMatchers(HttpMethod.POST, productAndCategory).hasRole((UserRoleEnum.ADMIN).toString())
+                                .requestMatchers(HttpMethod.PUT, productAndCategory).hasRole((UserRoleEnum.ADMIN).toString())
+                                .requestMatchers(HttpMethod.PATCH, productAndCategory).hasRole((UserRoleEnum.ADMIN).toString())
+                                .requestMatchers(HttpMethod.DELETE, productAndCategory).hasRole((UserRoleEnum.ADMIN).toString())
                                 .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                                 .requestMatchers("/api/category/admin/**").hasRole((UserRoleEnum.ADMIN).toString())
                                 .anyRequest().hasAnyRole((UserRoleEnum.USER).toString(), (UserRoleEnum.ADMIN).toString())
