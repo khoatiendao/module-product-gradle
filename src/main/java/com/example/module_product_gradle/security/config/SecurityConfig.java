@@ -49,7 +49,7 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.PATCH, productAndCategory).hasRole((UserRoleEnum.ADMIN).toString())
                                 .requestMatchers(HttpMethod.DELETE, productAndCategory).hasRole((UserRoleEnum.ADMIN).toString())
                                 .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                                .requestMatchers("/api/category/admin/**").hasRole((UserRoleEnum.ADMIN).toString())
+//                                .requestMatchers("/api/category/admin/**").hasRole((UserRoleEnum.ADMIN).toString())
                                 .anyRequest().hasAnyRole((UserRoleEnum.USER).toString(), (UserRoleEnum.ADMIN).toString())
 
                 )
